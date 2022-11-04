@@ -1,3 +1,5 @@
+#include <TimeLib.h>
+
 void setup() {
   
 
@@ -13,6 +15,7 @@ class Command{
     int portNumber;
     int value;
     String commandType;
+    time_t timeStamp;
     
   public:
     void execute(){
@@ -23,6 +26,7 @@ class Command{
         portNumberIn = portNumber;
         valueIn = value;
         commandTypeIn = commandType;
+        timeStamp = now();
     }
     
     int getPN(){return portNumber;};
@@ -32,6 +36,8 @@ class Command{
     int getValue(){return value;};
     
     void setValue(int input){value = input;};
+
+    time_t getTimeStamp(){return timeStamp;};
     
     String getCommand(){return commandType;};
     
@@ -39,11 +45,11 @@ class Command{
     
 };
 
-class Engine{
+class Component{
   private:
     int value;
     int pin;
-    Command command;
+    bool active;
     
   public:
    int getValue(){return value;};
