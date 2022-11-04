@@ -100,6 +100,11 @@ class Engine: public Component {
     int enginePosition;
 };
 
+class ServoClass: public Component {
+  public:
+    int angle;
+};
+
 void writeEngine(int input){
   //TODO: Write code to handle changes to engines
 };
