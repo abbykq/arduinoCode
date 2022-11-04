@@ -11,6 +11,9 @@ void loop() {
 
 };
 
+void writeEngine(int input);
+void writeServo(int input);
+
 class Command {
   private:
     int portNumber;
@@ -76,8 +79,9 @@ class Component {
     void setPin(int val) {
       pin = val;
     };
-
-    void execute(Command* command) {
+   
+// Takes in command, which is a pointer to a Command object
+    void execute(Command* command) { 
       switch (command->getType()) {
 
         case 1: writeEngine(command->getValue());//engine speed command
@@ -94,4 +98,12 @@ class Engine: public Component {
   public:
     int angle;
     int enginePosition;
+};
+
+void writeEngine(int input){
+  //TODO: Write code to handle changes to engines
+};
+
+void writeServo(int input){
+  //TODO: Write code to handle changes to servos
 };
