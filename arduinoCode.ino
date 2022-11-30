@@ -1,14 +1,29 @@
 #include <TimeLib.h>
-#include <Servo.h>
+#include <SoftwareSerial.h>
+#define bluetooth A0
+
+SoftwareSerial BTSerial(10, 11); // RX | TX
+
 
 void setup() {
-//  Serial.begin(9600);
-//  IrReceiver.begin(inputPin);
+  Serial.begin(9600);
+  pinMode(bluetooth, INPUT);
+  BTSerial.begin(9600);
+  BTSerial.listen();
+  pinMode(0, INPUT);    
 };
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  int x = digitalRead(10) ;
+  if(x!=1) Serial.println(digitalRead(10));
+  if (BTSerial.available()) { // read from HC-05 and send to Arduino Serial Monitor
+    char BTInput;
+    BTInput = BTSerial.read();
+    Serial.print(BTSerial.read());
+  }
 
+  if (Serial.available())     // Keep reading from Arduino Serial Monitor and send to HC-05
+    BTSerial.write(Serial.read());;
 };
 
 void writeEngine(int input);
@@ -79,9 +94,9 @@ class Component {
     void setPin(int val) {
       pin = val;
     };
-   
-// Takes in command, which is a pointer to a Command object
-    void execute(Command* command) { 
+
+    // Takes in command, which is a pointer to a Command object
+    void execute(Command* command) {
       switch (command->getType()) {
 
         case 1: writeEngine(command->getValue());//engine speed command
@@ -105,10 +120,10 @@ class ServoClass: public Component {
     int angle;
 };
 
-void writeEngine(int input){
+void writeEngine(int input) {
   //TODO: Write code to handle changes to engines
 };
 
-void writeServo(int input){
+void writeServo(int input) {
   //TODO: Write code to handle changes to servos
 };
